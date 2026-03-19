@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de IMC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="EstruturasCondicionaisComCSS" href="EstruturasCondicionaisComCSS.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Calculadora de IMC</h1>
+
+        <form>
+            <label>Peso (Kg)</label>
+            <input type="number" id="v1" placeholder="Ex: 70">
+
+            <label>Altura (M)</label>
+            <input type="number" id="v2" placeholder="Ex: 1.75">
+
+            <button type="button" onclick="executar()">Calcular</button>
+        </form>
+
+        <div id="resultado" class="resultado">
+            Preencha os dados para ver o resultado
+        </div>
+    </div>
+
+    <script src="EstruturasCondicionaisComCSS.js"></script>
+
+    <script>
+        const executar = () => {
+            const peso = Number(document.getElementById("v1").value);
+            const altura = Number(document.getElementById("v2").value);
+
+            if (!peso || !altura) {
+                alert("Preencha os campos corretamente!");
+                return;
+            }
+
+            const v_imc = imc(peso, altura);
+            const v_sit = situacao(v_imc);
+
+            const resultado = document.getElementById("resultado");
+
+            resultado.innerHTML = `
+                <strong>IMC:</strong> ${v_imc.toFixed(2)} <br>
+                <strong>Situação:</strong> ${v_sit}
+            `;
+
+            // Muda a cor conforme IMC
+            if (v_imc < 18.5) resultado.style.background = "#f1c40f";
+            else if (v_imc < 25) resultado.style.background = "#2ecc71";
+            else if (v_imc < 30) resultado.style.background = "#e67e22";
+            else resultado.style.background = "#e74c3c";
+        }
+    </script>
+
+</body>
+</html>
